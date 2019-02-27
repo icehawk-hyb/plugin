@@ -333,12 +333,13 @@ func (b *BlockChain) connectBlock(node *blockNode, blockdetail *types.BlockDetai
 	newbatch := b.blockStore.NewBatch(sync)
 
 	//保存tx信息到db中
-	err = b.blockStore.AddTxs(newbatch, blockdetail)
-	if err != nil {
-		chainlog.Error("connectBlock indexTxs:", "height", block.Height, "err", err)
-		return nil, err
-	}
-
+	/*
+		err = b.blockStore.AddTxs(newbatch, blockdetail)
+		if err != nil {
+			chainlog.Error("connectBlock indexTxs:", "height", block.Height, "err", err)
+			return nil, err
+		}
+	*/
 	//保存block信息到db中
 	lastSequence, err = b.blockStore.SaveBlock(newbatch, blockdetail, node.sequence)
 	if err != nil {

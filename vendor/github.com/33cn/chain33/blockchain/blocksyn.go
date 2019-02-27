@@ -231,7 +231,7 @@ func (chain *BlockChain) FetchBlock(start int64, end int64, pid []string, syncOr
 		}
 	}
 
-	synlog.Debug("FetchBlock", "Start", requestblock.Start, "End", requestblock.End)
+	synlog.Error("FetchBlock", "Start", requestblock.Start, "End", requestblock.End)
 	msg := chain.client.NewMessage("p2p", types.EventFetchBlocks, &requestblock)
 	Err := chain.client.Send(msg, true)
 	if Err != nil {

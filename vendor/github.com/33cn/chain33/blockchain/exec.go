@@ -23,6 +23,14 @@ func execBlock(client queue.Client, prevStateRoot []byte, block *types.Block, er
 		chainlog.Info("ExecBlock", "height", block.Height, "ntx", len(block.Txs), "writebatchsync", sync, "cost", types.Since(beg))
 	}()
 
+	//test
+	if errReturn {
+		var detailtest types.BlockDetail
+		detailtest.Block = block
+		detailtest.Receipts = nil
+		return &detailtest, nil, nil
+	}
+	//
 	if errReturn && block.Height > 0 && !block.CheckSign() {
 		//block的来源不是自己的mempool，而是别人的区块
 		return nil, nil, types.ErrSign

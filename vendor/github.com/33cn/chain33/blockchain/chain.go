@@ -298,12 +298,14 @@ func (chain *BlockChain) SendAddBlockEvent(block *types.BlockDetail) (err error)
 	if Err != nil {
 		chainlog.Error("SendAddBlockEvent -->>consensus", "err", Err)
 	}
-	chainlog.Debug("SendAddBlockEvent -->>wallet", "height", block.GetBlock().GetHeight())
-	msg = chain.client.NewMessage("wallet", types.EventAddBlock, block)
-	Err = chain.client.Send(msg, false)
-	if Err != nil {
-		chainlog.Error("SendAddBlockEvent -->>wallet", "err", Err)
-	}
+	/*
+		chainlog.Debug("SendAddBlockEvent -->>wallet", "height", block.GetBlock().GetHeight())
+		msg = chain.client.NewMessage("wallet", types.EventAddBlock, block)
+		Err = chain.client.Send(msg, false)
+		if Err != nil {
+			chainlog.Error("SendAddBlockEvent -->>wallet", "err", Err)
+		}
+	*/
 	return nil
 }
 
