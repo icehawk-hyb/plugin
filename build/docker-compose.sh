@@ -87,6 +87,8 @@ function base_init() {
     # wallet
     sed -i $sedfix 's/^minerdisable=.*/minerdisable=false/g' chain33.toml
 
+    sed -i $sedfix 's/^nodeGroupFrozenCoins=.*/nodeGroupFrozenCoins=20/g' chain33.toml
+
 }
 
 function start() {
@@ -124,14 +126,14 @@ function start() {
     done
 
     miner "${CLI}"
-    #    miner "${CLI4}"
+    # miner "${CLI4}"
     block_wait "${CLI}" 1
 
     echo "=========== check genesis hash ========== "
     ${CLI} block hash -t 0
-    res=$(${CLI} block hash -t 0 | jq ".hash")
-    count=$(echo "$res" | grep -c "0x67c58d6ba9175313f0468ae4e0ddec946549af7748037c2fdd5d54298afd20b6")
-    if [ "${count}" != 1 ]; then
+    res=$(${CLI} block hash -t 0 | jq -r ".hash")
+    #in case changes result in genesis change
+    if [ "${res}" != "0xa87972dfc3510cb934cb987bcb88036f7a1ffd7dc069cb9a5f0af179895fd2e8" ]; then
         echo "genesis hash error!"
         exit 1
     fi
