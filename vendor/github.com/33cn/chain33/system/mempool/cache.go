@@ -5,6 +5,7 @@
 package mempool
 
 import (
+	"github.com/33cn/chain33/common"
 	"github.com/33cn/chain33/types"
 )
 
@@ -59,6 +60,7 @@ func (cache *txCache) Remove(hash string) {
 	}
 	cache.AccountTxIndex.Remove(tx)
 	cache.LastTxCache.Remove(tx)
+	mlog.Info("Remove", "txhash", common.ToHex([]byte(hash)))
 }
 
 //Exist 是否存在
