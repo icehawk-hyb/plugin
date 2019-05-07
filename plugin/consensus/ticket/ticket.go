@@ -648,7 +648,7 @@ func (client *Client) updateBlock(block *types.Block, txHashList [][]byte) (*typ
 	//需要去重复tx,去除过期交易
 	if lastBlock.Height != newblock.Height-1 {
 		newblock.Txs = client.CheckTxDup(newblock.Txs)
-		//删除交易过期或者交易费用不够的交易
+		//删除过期交易
 		newblock.Txs = client.CheckTxExpire(newblock.Txs, lastBlock.Height+1, newblock.BlockTime)
 	}
 
